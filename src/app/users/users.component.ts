@@ -1,9 +1,13 @@
-import { Component, computed, signal } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
-function getRandIdx() {
-  const randomIdx = Math.floor(Math.random() * DUMMY_USERS.length);
-  return randomIdx;
-}
+import {
+  Component,
+  computed,
+  EventEmitter,
+  input,
+  Input,
+  output,
+} from '@angular/core';
+import { type User } from './user.model';
+
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -12,16 +16,26 @@ function getRandIdx() {
   styleUrl: './users.component.css',
 })
 export class UsersComponent {
-  selectedUser = signal(DUMMY_USERS[getRandIdx()]);
-  imagePath = computed(() => `assets/users/${this.selectedUser().avatar}`);
-  // get imagePath() {
-  //   return `assets/users/${this.selectedUser.avatar}`;
-  // }
-  onSelectUser() {
-    this.#changeUser();
-    console.log('user clicked!');
+  /// traditional Inputs
+
+  @Input({ required: true })
+  user!: User;
+  // @Output() select1 = new EventEmitter<string>();
+  // newer way
+  select = output<string>();
+
+  get imagePath() {
+    return `assets/users/${this.user.avatar}`;
   }
-  #changeUser() {
-    this.selectedUser.set(DUMMY_USERS[getRandIdx()]);
+
+  // signal inputs note(companies codebase don't use signals yet!)
+
+  /// avatar = input<string>();
+  /// name = input<string>();
+  /// imagePath = computed(() => {
+  ///   return `assets/users/${this.avatar()}`;
+  /// });
+  onSelectUser() {
+    this.select.emit(this.user.id);
   }
 }

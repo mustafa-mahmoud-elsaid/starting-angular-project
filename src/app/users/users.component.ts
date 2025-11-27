@@ -18,8 +18,9 @@ import { type User } from './user.model';
 export class UsersComponent {
   /// traditional Inputs
 
-  @Input({ required: true })
-  user!: User;
+  @Input({ required: true }) user!: User;
+  @Input({ required: true }) slectedUser!: boolean;
+
   // @Output() select1 = new EventEmitter<string>();
   // newer way
   select = output<string>();

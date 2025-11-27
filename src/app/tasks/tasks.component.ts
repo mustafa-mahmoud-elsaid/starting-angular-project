@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 import { TaskComponent } from './task/task.component';
+import { Task } from './task/task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -39,5 +40,9 @@ export class TasksComponent {
   ];
   get selectedTask() {
     return this.dummyTasks.filter((task) => task.userId === this.userId);
+  }
+  deleteTask(task: Task) {
+    const idx = this.dummyTasks.indexOf(task);
+    if (idx !== -1) this.dummyTasks.splice(idx, 1);
   }
 }

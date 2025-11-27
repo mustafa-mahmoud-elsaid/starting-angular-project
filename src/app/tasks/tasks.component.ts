@@ -1,18 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 import { TaskComponent } from './task/task.component';
 import { Task } from './task/task.model';
+import { NewTaskComponent } from './new-task/new-task.component';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
 export class TasksComponent {
   @Input({ required: true }) name!: string;
   @Input({ required: true }) userId!: string;
+  isAddingTask = false;
   dummyTasks = [
     {
       id: 't1',
@@ -44,5 +46,11 @@ export class TasksComponent {
   deleteTask(task: Task) {
     const idx = this.dummyTasks.indexOf(task);
     if (idx !== -1) this.dummyTasks.splice(idx, 1);
+  }
+  onAddingTask() {
+    this.isAddingTask = true;
+  }
+  onCancelAddTask() {
+    this.isAddingTask = false;
   }
 }

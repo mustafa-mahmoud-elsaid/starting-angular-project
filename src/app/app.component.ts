@@ -13,8 +13,12 @@ import { TasksComponent } from './tasks/tasks.component';
 export class AppComponent {
   users = DUMMY_USERS;
   userId?: string;
+  renderAdding: boolean = false;
   onSelectUser(id: string) {
     this.userId = id;
+  }
+  setRenderAddingTrue(isRendered: boolean) {
+    this.renderAdding = isRendered;
   }
   get selelectedUser() {
     return this.users.find((u) => u.id === this.userId);

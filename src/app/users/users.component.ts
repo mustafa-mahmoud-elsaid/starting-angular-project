@@ -7,11 +7,12 @@ import {
   output,
 } from '@angular/core';
 import { type User } from './user.model';
+import { CardComponent } from '../shared/card/card.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [],
+  imports: [CardComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
 })
